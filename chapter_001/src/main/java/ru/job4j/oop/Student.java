@@ -3,18 +3,18 @@ package ru.job4j.oop;
 public class Student {
     private
     String name;
-    String song = "\n\tYesterday,\n" +
-            "\tall my troubles seemed so far away,\n" +
-            "\tNow it looks as though they're here to stay.\n" +
-            "\tOh, I believe in yesterday.\n";
+    String song = "\n\tYesterday,\n"
+            + "\tall my troubles seemed so far away,\n"
+            + "\tNow it looks as though they're here to stay.\n"
+            + "\tOh, I believe in yesterday.\n";
     public
-    Student (String name) {
+    Student(String name) {
         this.name = name;
     }
-    String getName () {
+    String getName() {
         return name;
     }
-    void sing (String request) {
+    void sing(String request) {
         String answer = "";
         if (request.equals(name + ", cпой, пожалуйста.")) {
             answer = "-Конечно спою, чувак:" + song;

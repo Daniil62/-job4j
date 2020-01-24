@@ -4,9 +4,9 @@ public class Slash {
     public static void draw(int size, char symbol) {
         int start = (size);
         System.out.println("Draw by " + size + " symbols.");
-        for(int i = 1; i <= size; ++i) {
-            for(int j = 1; j <= size; ++j) {
-                if(j == i || j == start) {
+        for (int i = 1; i <= size; ++i) {
+            for (int j = 1; j <= size; ++j) {
+                if (j == i || j == start) {
                     System.out.print(symbol);
                 } else {
                     System.out.print(" ");

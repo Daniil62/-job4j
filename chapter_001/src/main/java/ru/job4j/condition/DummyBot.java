@@ -3,13 +3,11 @@ package ru.job4j.condition;
 public class DummyBot {
     public static String answer(String question) {
         String rsl = "";
-        if(question.equals("Привет, бот.")) {
+        if (question.equals("Привет, бот.")) {
             rsl = "Здорова, умник.";
-        }
-        else if (question.equals("Пока.")) {
+        } else if (question.equals("Пока.")) {
             rsl = "До встречи.";
-        }
-        else {
+        } else {
             rsl = "Я не догоняю о чем ты, спроси что-нибудь полегче.";
         }
         System.out.println(question);
