@@ -3,16 +3,20 @@ package ru.job4j.oop;
 import java.util.Random;
 
 public class Cat {
-    private
-    String name;
-    String colour;
-    String food;
-    Random rand = new Random();
-    String[] nameBox = new String[]{"Boris", "Pushok", "Vovan", "Iogann", "Jean-Paul"};
-    String[] colourBox = new String[]{"black", "white", "tiger", "grey", "black & white", "ginger"};
-    String[] foodBox = new String[]{"fish", "meet", "cutlet", "tushonka", "potato"};
-    public
-    Cat(String name, String colour, String food) {
+    private String name;
+    private String colour;
+    private String food;
+    private Random rand = new Random();
+    private String[] nameBox = new String[]{"Boris", "Pushok", "Vovan", "Iogann", "Jean-Paul"};
+    private String[] colourBox = new String[]{"black", "white", "tiger", "grey", "black & white", "ginger"};
+    private String[] foodBox = new String[]{"fish", "meet", "cutlet", "tushonka", "potato"};
+
+    public Cat(String name, String colour, String food) {
+        this.name = name;
+        this.colour = colour;
+        this.food = food;
+    }
+    public void randomCat() {
         this.name = name;
         this.colour = colour;
         this.food = food;
@@ -26,25 +30,29 @@ public class Cat {
             this.food = foodBox[rand.nextInt(5)];
         }
     }
-    void giveName(String name) {
+    public void giveName(String name) {
         this.name = name;
     }
-    void catInfo() {
+    public void catInfo() {
         System.out.println("\nCat`s name is: " + name + "\n"
                           + name + "`s" + " colour is: " + colour + "\n"
                           + name + "`s" + " food is: " + food + ".");
     }
 
     public static void main(String[] args) {
-        Cat cat = new Cat("", "", "");
+        Cat cat = new Cat("Barsik", "ginger", "pizza");
         cat.catInfo();
         Cat secondCat = new Cat("Vasily", "grey", "sausage");
         secondCat.catInfo();
         Cat firstCat = new Cat("", "white", "");
         firstCat.giveName("Rodriguez");
+        firstCat.randomCat();
+        firstCat.catInfo();
+        firstCat.randomCat();
         firstCat.catInfo();
         Cat newCat = new Cat("", "", "");
         newCat.giveName("Philip");
+        newCat.randomCat();
         newCat.catInfo();
     }
 }
