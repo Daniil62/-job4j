@@ -1,7 +1,7 @@
 package ru.job4j.oop;
 
 public class Dog {
-    String name;
+    private String name;
     public void setName(String name) {
         this.name = name;
     }
