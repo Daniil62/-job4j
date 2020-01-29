@@ -24,7 +24,7 @@ public class Library {
     public void search(String name, Book[] array) {
         System.out.println("Search the: " + "\"" + name + "\"" + " book");
         for (int i = 0; i < array.length; ++i) {
-            if (array[i].getName() == name) {
+            if (array[i].getName().equals(name)) {
                 System.out.println("Book: " + array[i].getName() + ","
                         + System.lineSeparator() + "author " + array[i].getAuthor() + ","
                         + System.lineSeparator() + array[i].getPagesCount() + " pages."
