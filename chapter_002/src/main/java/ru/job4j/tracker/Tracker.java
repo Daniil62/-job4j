@@ -10,14 +10,14 @@ public class Tracker {
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
     private int indexOf(String id) {
-        int rsl = -1;
+        int result = -1;
         for (int i = 0; i < position; ++i) {
             if (items[i].getId().equals(id)) {
-                rsl = i;
+                result = i;
                 break;
             }
         }
-        return rsl;
+        return result;
     }
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -61,5 +61,10 @@ public class Tracker {
     public void replace(String id, Item item) {
         item.setId(id);
         items[indexOf(id)] = item;
+    }
+    public void delete(String id) {
+        System.arraycopy(items, (indexOf(id) + 1), items, indexOf(id), position - (indexOf(id) + 1));
+        items[position] = null;
+        position--;
     }
 }
