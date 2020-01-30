@@ -44,4 +44,14 @@ public class TrackerTest {
         tracker.add(item);
         Assert.assertThat(null, is(tracker.findById("#####")));
     }
+    @Test
+    public void whenReplace() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("Old item");
+        tracker.add(item);
+        String id = item.getId();
+        Item freshItem = new Item("This is new item after replace");
+        tracker.replace(id, freshItem);
+        Assert.assertThat(tracker.findById(id).getName(), is("This is new item after replace"));
+    }
 }

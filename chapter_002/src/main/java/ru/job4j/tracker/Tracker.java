@@ -9,6 +9,16 @@ public class Tracker {
         java.util.Random rm = new java.util.Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
+    private int indexOf(String id) {
+        int rsl = -1;
+        for (int i = 0; i < position; ++i) {
+            if (items[i].getId().equals(id)) {
+                rsl = i;
+                break;
+            }
+        }
+        return rsl;
+    }
     public Item add(Item item) {
         item.setId(this.generateId());
         items[this.position++] = item;
@@ -39,13 +49,17 @@ public class Tracker {
         return itemsNameId;
     }
     public Item findById(String id) {
-        Item result = null;
+        Item item = null;
         for (int i = 0; i < position; ++i) {
-            if (items[i].getId().equals(id)) {
-                result = items[i];
+            if (items[indexOf(id)].getId().equals(id)) {
+                item = items[i];
                 break;
             }
         }
-        return result;
+        return item;
+    }
+    public void replace(String id, Item item) {
+        item.setId(id);
+        items[indexOf(id)] = item;
     }
 }
