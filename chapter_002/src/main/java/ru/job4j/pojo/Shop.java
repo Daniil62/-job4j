@@ -6,7 +6,6 @@ public class Shop {
         for (int i = index; i < assortment.length - 1; ++i) {
                 assortment[index] = assortment[i + 1];
                 assortment[i + 1] = null;
-                index++;
         }
         return assortment;
     }
