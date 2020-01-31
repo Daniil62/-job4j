@@ -4,7 +4,7 @@ public class Shop {
     public Product[] delete(Product[] assortment, int index) {
         System.out.println("! Deleting empty position !" + System.lineSeparator());
         for (int i = index; i < assortment.length - 1; ++i) {
-                assortment[index] = assortment[i + 1];
+                assortment[i] = assortment[i + 1];
                 assortment[i + 1] = null;
         }
         return assortment;
