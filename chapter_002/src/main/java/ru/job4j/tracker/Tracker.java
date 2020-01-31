@@ -37,7 +37,7 @@ public class Tracker {
         return itemsWithoutNulls;
     }
     public Item[] findByName(String key) {
-        Item[] itemsNameId = new Item[items.length];
+        Item[] itemsNameId = new Item[position];
         int index = 0;
         for (int i = 0; i < position; ++i) {
             if (items[i].getName().equals(key)) {
@@ -50,17 +50,16 @@ public class Tracker {
     }
     public Item findById(String id) {
         Item item = null;
-        for (int i = 0; i < position; ++i) {
-            if (items[indexOf(id)].getId().equals(id)) {
-                item = items[i];
-                break;
+            if (indexOf(id) != -1 && items[indexOf(id)].getId().equals(id)) {
+               item = items[indexOf(id)];
             }
-        }
         return item;
     }
     public void replace(String id, Item item) {
         item.setId(id);
-        items[indexOf(id)] = item;
+        if (indexOf(id) != -1) {
+            items[indexOf(id)] = item;
+        }
     }
     public void delete(String id) {
         System.arraycopy(items, (indexOf(id) + 1), items, indexOf(id), position - (indexOf(id) + 1));
