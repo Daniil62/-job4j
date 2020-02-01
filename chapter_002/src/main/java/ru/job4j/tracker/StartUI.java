@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class StartUI {
@@ -29,28 +30,41 @@ public class StartUI {
                 System.out.println("Your Id: " + item.getId());
             } else if (select == 1) {
                 System.out.println("=== Show all items ====");
-                for (int i = 0; i < tracker.findAll().length; ++i) {
-                    System.out.println(tracker.findAll());
+                int value = tracker.findAll().length;
+                for (int i = 0; i < value; ++i) {
+                    System.out.println(tracker.findAll()[i].getName());
                 }
             } else if (select == 2) {
                 System.out.println("=== Edit item ====");
                 System.out.print("Enter Id: ");
                 String id = scanner.nextLine();
-                System.out.print("Enter new name: ");
-                name = scanner.nextLine();
-                Item item = new Item(name);
-                tracker.replace(id, item);
+                if (tracker.findById(id) != null) {
+                    System.out.print("Enter new name: ");
+                    name = scanner.nextLine();
+                    Item item = new Item(name);
+                    tracker.replace(id, item);
+                    System.out.println("Changes made successfully.");
+                } else {
+                    System.out.println("This Id do not exist!");
+                }
+
             } else if (select == 3) {
                 System.out.println("=== Delete item ====");
                 System.out.print("Enter Id: ");
                 name = scanner.nextLine();
-                tracker.delete(name);
+                if (tracker.findById(name) != null) {
+                    tracker.delete(name);
+                    System.out.println("Data was successfully deleted.");
+                } else {
+                    System.out.println("This Id do not exist!");
+                }
             } else if (select == 4) {
                 System.out.println("=== Find item by Id ====");
                 System.out.print("Enter Id: ");
                 name = scanner.nextLine();
-                if (tracker.findById(name) != null) {
-                    System.out.println(tracker.findById(name).getName());
+                Item item = tracker.findById(name);
+                if (item != null) {
+                    System.out.println(item.getName());
                 } else {
                     System.out.println("This Id do not exist!");
                 }
@@ -58,11 +72,14 @@ public class StartUI {
                 System.out.println("=== Find items by name ====");
                 System.out.print("Enter name: ");
                 name = scanner.nextLine();
-                for (int i = 0; i < tracker.findByName(name).length; ++i) {
-                        System.out.println(tracker.findByName(name));
+                int value = tracker.findByName(name).length;
+                for (int i = 0; i < value; ++i) {
+                    System.out.println(tracker.findByName(name)[i]);
                 }
             } else if (select == 6) {
                 run = false;
+            } else {
+                System.out.println("Incorrectly entered command!");
             }
         }
     }
