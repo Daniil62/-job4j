@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 public class StartUI {
     private String name;
-    private int showMenu() {
+    private static int showMenu() {
         ConsoleInput input = new ConsoleInput();
         int result =  input.askInt("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
@@ -15,61 +15,78 @@ public class StartUI {
                 + "   Select:" + System.lineSeparator());
         return result;
     }
+    public static void createItem(Input input, Tracker tracker) {
+        System.out.println("=== Create a new Item ====");
+        String name = input.askStr("Enter name: ");
+        Item item = new Item(name);
+        tracker.add(item);
+        System.out.println("Your Id: " + item.getId());
+    }
+    public static void showAllItems(Input input, Tracker tracker) {
+        System.out.println("=== Show all items ====");
+        Item[] array = tracker.findAll();
+        int value = array.length;
+        for (int i = 0; i < value; ++i) {
+            System.out.println(array[i].getName());
+        }
+    }
+    public static void changeItem(Input input, Tracker tracker) {
+        System.out.println("=== Edit item ====");
+        System.out.print("Enter Id: ");
+        String id = input.askStr("Enter Id: ");
+        Item item = new Item("");
+        if (tracker.replace(id, item)) {
+            String name = input.askStr("Enter new name: ");
+            item.setName(name);
+            System.out.println("Changes made successfully.");
+        } else {
+            System.out.println("This Id do not exist!");
+        }
+    }
+    public static void deleteItem(Input input, Tracker tracker) {
+        System.out.println("=== Delete item ====");
+        String id = input.askStr("Enter Id: ");
+        if (tracker.delete(id)) {
+            System.out.println("Data was successfully deleted.");
+        } else {
+            System.out.println("This Id do not exist!");
+        }
+    }
+    public static void findItemById(Input input, Tracker tracker) {
+        System.out.println("=== Find item by Id ====");
+        String id = input.askStr("Enter Id: ");
+        Item item = tracker.findById(id);
+        if (item != null) {
+            System.out.println(item.getName());
+        } else {
+            System.out.println("This Id do not exist!");
+        }
+    }
+    public static void showItemsWithName(Input input, Tracker tracker) {
+        System.out.println("=== Find items by name ====");
+        String name = input.askStr("Enter name: ");
+        Item[] array = tracker.findByName(name);
+        int value = array.length;
+        for (int i = 0; i < value; ++i) {
+            System.out.println(array[i]);
+        }
+    }
     public void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
-            int select = this.showMenu();
+            int select = showMenu();
             if (select == 0) {
-                System.out.println("=== Create a new Item ====");
-                name = input.askStr("Enter name: ");
-                Item item = new Item(name);
-                tracker.add(item);
-                System.out.println("Your Id: " + item.getId());
+                createItem(input, tracker);
             } else if (select == 1) {
-                System.out.println("=== Show all items ====");
-                Item[] array = tracker.findAll();
-                int value = array.length;
-                for (int i = 0; i < value; ++i) {
-                    System.out.println(array[i].getName());
-                }
+                showAllItems(input, tracker);
             } else if (select == 2) {
-                System.out.println("=== Edit item ====");
-                System.out.print("Enter Id: ");
-                String id = input.askStr("Enter Id: ");
-                Item item = new Item("");
-                if (tracker.replace(id, item)) {
-                    name = input.askStr("Enter new name: ");
-                    item.setName(name);
-                    System.out.println("Changes made successfully.");
-                } else {
-                    System.out.println("This Id do not exist!");
-                }
-
+                changeItem(input, tracker);
             } else if (select == 3) {
-                System.out.println("=== Delete item ====");
-                name = input.askStr("Enter Id: ");
-                if (tracker.delete(name)) {
-                    System.out.println("Data was successfully deleted.");
-                } else {
-                    System.out.println("This Id do not exist!");
-                }
+                deleteItem(input, tracker);
             } else if (select == 4) {
-                System.out.println("=== Find item by Id ====");
-                name = input.askStr("Enter Id: ");
-                Item item = tracker.findById(name);
-                if (item != null) {
-                    System.out.println(item.getName());
-                } else {
-                    System.out.println("This Id do not exist!");
-                }
+                findItemById(input, tracker);
             } else if (select == 5) {
-                System.out.println("=== Find items by name ====");
-                name = input.askStr("Enter name: ");
-                Item[] array = tracker.findByName(name);
-                int value = array.length;
-                for (int i = 0; i < value; ++i) {
-                    System.out.println(array[i]);
-                }
+                showItemsWithName(input, tracker);
             } else if (select == 6) {
                 run = false;
             } else {
