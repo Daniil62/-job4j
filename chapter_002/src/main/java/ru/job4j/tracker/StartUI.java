@@ -30,19 +30,20 @@ public class StartUI {
                 System.out.println("Your Id: " + item.getId());
             } else if (select == 1) {
                 System.out.println("=== Show all items ====");
-                int value = tracker.findAll().length;
+                Item[] array = tracker.findAll();
+                int value = array.length;
                 for (int i = 0; i < value; ++i) {
-                    System.out.println(tracker.findAll()[i].getName());
+                    System.out.println(array[i].getName());
                 }
             } else if (select == 2) {
                 System.out.println("=== Edit item ====");
                 System.out.print("Enter Id: ");
                 String id = scanner.nextLine();
-                if (tracker.findById(id) != null) {
+                Item item = new Item("");
+                if (tracker.replace(id, item)) {
                     System.out.print("Enter new name: ");
                     name = scanner.nextLine();
-                    Item item = new Item(name);
-                    tracker.replace(id, item);
+                    item.setName(name);
                     System.out.println("Changes made successfully.");
                 } else {
                     System.out.println("This Id do not exist!");
@@ -52,8 +53,7 @@ public class StartUI {
                 System.out.println("=== Delete item ====");
                 System.out.print("Enter Id: ");
                 name = scanner.nextLine();
-                if (tracker.findById(name) != null) {
-                    tracker.delete(name);
+                if (tracker.delete(name)) {
                     System.out.println("Data was successfully deleted.");
                 } else {
                     System.out.println("This Id do not exist!");
@@ -72,9 +72,10 @@ public class StartUI {
                 System.out.println("=== Find items by name ====");
                 System.out.print("Enter name: ");
                 name = scanner.nextLine();
-                int value = tracker.findByName(name).length;
+                Item[] array = tracker.findByName(name);
+                int value = array.length;
                 for (int i = 0; i < value; ++i) {
-                    System.out.println(tracker.findByName(name)[i]);
+                    System.out.println(array[i]);
                 }
             } else if (select == 6) {
                 run = false;
