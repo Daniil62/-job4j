@@ -6,6 +6,7 @@ import ru.job4j.tracker.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.StringJoiner;
 
 import static org.hamcrest.core.IsNull.nullValue;
 
@@ -46,21 +47,7 @@ public class StartUITest {
         Item deleted = tracker.findById(item.getId());
         Assert.assertThat(deleted, is(nullValue()));
     }
-    @Test
-    public void whenCheckOutput() {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PrintStream def = System.out;
-        System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
-        Item item = new Item("fix bug");
-        tracker.add(item);
-        ShowAllAction act = new ShowAllAction();
-        act.execute(new StubInput(new String[] {}), tracker);
-        String expect = ("=== Show all items ====" + System.lineSeparator() + item.getName()
-                + System.lineSeparator());
-        Assert.assertThat(new String(out.toByteArray()), is(expect));
-        System.setOut(def);
-    }
+//--------------------------------------------------------------------------------------------------
     @Test
     public void whenExitTrue() {
         StubInput input = new StubInput(new String[] {"0"});
@@ -74,5 +61,37 @@ public class StartUITest {
         StubAction action = new StubAction();
         new StartUI().init(input, new Tracker(), new UserAction[] {action});
         Assert.assertThat(action.isCall(), is(false));
+    }
+//----------------------------------------------------------------------------------------------------
+    @Test
+    public void whenCheckOutputShowAll() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream def = System.out;
+        System.setOut(new PrintStream(out));
+        Tracker tracker = new Tracker();
+        Item item = new Item("==name==");
+        tracker.add(item);
+        ShowAllAction act = new ShowAllAction();
+        act.execute(new StubInput(new String[] {}), tracker);
+        String expect = ("=== Show all items ====" + System.lineSeparator() + item.getName()
+                + System.lineSeparator());
+        Assert.assertThat(new String(out.toByteArray()), is(expect));
+        System.setOut(def);
+    }
+    @Test
+    public void whenCheckOutputFindByName() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream def = System.out;
+        System.setOut(new PrintStream(out));
+        Tracker tracker = new Tracker();
+        Item item = new Item("==name==");
+        StubInput input = new StubInput(new String[] {"==name=="});
+        tracker.add(item);
+        FindByNameAction act = new FindByNameAction();
+        act.execute(input, tracker);
+        String expect = ("=== Find items by name ====" + System.lineSeparator() + item
+                + System.lineSeparator());
+        Assert.assertThat(new String(out.toByteArray()), is(expect));
+        System.setOut(def);
     }
 }
