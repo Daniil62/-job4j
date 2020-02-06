@@ -1,30 +1,27 @@
 package ru.job4j.tracker;
 
+import java.util.StringJoiner;
+
 public class StartUI {
-    private static int showMenu() {
-        Input input = new ConsoleInput();
-        int select =  input.askInt("Menu." + System.lineSeparator()
-                + "0. Add new Item" + System.lineSeparator()
-                + "1. Show all items" + System.lineSeparator()
-                + "2. Edit item" + System.lineSeparator()
-                + "3. Delete item" + System.lineSeparator()
-                + "4. Find item by Id" + System.lineSeparator()
-                + "5. Find items by name" + System.lineSeparator()
-                + "6. Exit Program" + System.lineSeparator()
-                + "   Select:" + System.lineSeparator());
-        return select;
+    private static void showMenu() {
+        StringJoiner sj = new StringJoiner(System.lineSeparator());
+        System.out.println("Menu.");
+        String[] menu = {"0. Add new Item",
+                "1. Show all items", "2. Edit item",
+                "3. Delete item", "4. Find item by Id",
+                "5. Find items by name",
+                "6. Exit Program"};
+        for (int i = 0; i < menu.length; ++i) {
+            sj.add(menu[i]);
+        }
+        System.out.println(sj);
     }
     public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
-            int select = showMenu();
-            if (select >= actions.length || select < 0) {
-                System.out.println("Goodbye.");
-                run = false;
-                break;
-            } else {
+            showMenu();
+            int select = input.askInt("   Select: ", actions.length);
                 run = actions[select].execute(input, tracker);
-            }
         }
     }
     public static void main(String[] args) {
@@ -34,9 +31,10 @@ public class StartUI {
                 new ReplaceAction(),
                 new DeleteAction(),
                 new FindByIdAction(),
-                new FindByNameAction()
+                new FindByNameAction(),
+                new ExitAction()
         };
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
         Tracker tracker = new Tracker();
         new StartUI().init(input, tracker, actions);
     }
