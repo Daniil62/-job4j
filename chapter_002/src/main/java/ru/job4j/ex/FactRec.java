@@ -4,10 +4,8 @@ public class FactRec {
     public static int calc(int n) {
         int result = 0;
         if (n > 0) {
-            if (n == 1) {
+            if (n == 1 || n == 0) {
                 result = 1;
-            } else if (n == 0) {
-                result = 0;
             } else {
                 result = calc(n - 1) * n;
             }
