@@ -8,7 +8,6 @@ public class ReplaceAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        boolean result = false;
         System.out.println("=== Edit item ====");
         System.out.print("Enter Id: ");
         String id = input.askStr("Enter Id: ");
@@ -17,10 +16,9 @@ public class ReplaceAction implements UserAction {
             String name = input.askStr("Enter new name: ");
             item.setName(name);
             System.out.println("Changes made successfully.");
-            result = true;
         } else {
             System.out.println("This Id do not exist!");
         }
-        return result;
+        return true;
     }
 }

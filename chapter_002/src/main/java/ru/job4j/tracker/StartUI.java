@@ -3,7 +3,7 @@ package ru.job4j.tracker;
 import java.util.StringJoiner;
 
 public class StartUI {
-    private static void showMenu() {
+    private static void showMenu(int actions) {
         StringJoiner sj = new StringJoiner(System.lineSeparator());
         System.out.println("Menu.");
         String[] menu = {"0. Add new Item",
@@ -11,7 +11,7 @@ public class StartUI {
                 "3. Delete item", "4. Find item by Id",
                 "5. Find items by name",
                 "6. Exit Program"};
-        for (int i = 0; i < menu.length; ++i) {
+        for (int i = 0; i < actions; ++i) {
             sj.add(menu[i]);
         }
         System.out.println(sj);
@@ -19,7 +19,7 @@ public class StartUI {
     public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
-            showMenu();
+            showMenu(actions.length);
             int select = input.askInt("   Select: ", actions.length);
                 run = actions[select].execute(input, tracker);
         }
