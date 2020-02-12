@@ -21,9 +21,6 @@ public class PhoneDictionary {
                         + " " +  persons.get(i).getAddress()
                         + System.lineSeparator());
             }
-            else {
-                result = null;
-            }
         }
         return result;
     }
