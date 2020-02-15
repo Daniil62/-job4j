@@ -6,19 +6,19 @@ public class ConvertList2Array {
     public static int[][] toArray(List<Integer> list, int cells) {
         int groups = (int) Math.ceil((double) list.size() / cells);
         int[][] array = new int[groups][cells];
-        int val = 0;
-        for (int i = 0; i < groups; ++i) {
-            for (int j = 0; j < cells; ++j) {
-                array[i][j] = list.get(val);
-                if (val < list.size() - 1) {
-                    val++;
-                } else {
-                    break;
-                }
+        int i = 0;
+        int j = 0;
+        for (int val : list) {
+            array[j][i] = val;
+            if (i < cells - 1) {
+                i++;
+            } else {
+                i = 0;
+                j++;
             }
         }
         return array;
-    }
+}
 
     public static void main(String[] args) {
         List<Integer> list = List.of(1, 2, 3, 4, 5, 6, 7);
