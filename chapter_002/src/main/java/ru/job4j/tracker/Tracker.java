@@ -2,18 +2,19 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Tracker {
-    private ArrayList<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
     private String generateId() {
         java.util.Random rm = new java.util.Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
     private int indexOf(String id) {
         int result = -1;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                result = this.items.indexOf(item);
+        for (int i = 0; i < this.items.size(); ++i) {
+            if (this.items.get(i).getId().equals(id)) {
+                result = i;
                 break;
             }
         }
@@ -24,27 +25,16 @@ public class Tracker {
         this.items.add(item);
         return item;
     }
-    public Item[] findAll() {
-        Item[] array = new Item[this.items.size()];
-        int i = 0;
-        for (Item item : this.items) {
-            array[i] = item;
-            if (i < this.items.size() - 1) {
-                i++;
-            }
-        }
-        return Arrays.copyOf(array, this.items.size());
+    public List<Item> findAll() {
+        return this.items;
     }
-    public Item[] findByName(String key) {
-        Item[] itemsNameId = new Item[this.items.size()];
-        int index = 0;
+    public List<Item> findByName(String key) {
+        List<Item> itemsNameId = new ArrayList<>();
         for (Item item : this.items) {
             if (item.getName().equals(key)) {
-                itemsNameId[index] = item;
-                index++;
+                itemsNameId.add(item);
             }
         }
-        itemsNameId = Arrays.copyOf(itemsNameId, index);
         return itemsNameId;
     }
     public Item findById(String id) {
@@ -60,7 +50,7 @@ public class Tracker {
         int index = indexOf(id);
         if (index != -1) {
             item.setId(id);
-            this.items.set(indexOf(id), item);
+            this.items.set(index, item);
             result = true;
         }
         return result;
