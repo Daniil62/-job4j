@@ -20,4 +20,21 @@ public class ProfilesTest {
         Assert.assertThat(profiles.collect(list).get(0), is(address1));
         Assert.assertThat(profiles.collect(list).get(1), is(address2));
     }
+    @Test
+    public void checkProfilesDistinct() {
+        Address address1 = new Address("Leningrad", "Third builders st.", 25, 12);
+        Address address2 = new Address("Moscow", "Third builders st.", 25, 12);
+        Address address3 = new Address("Leningrad", "Third builders st.", 25, 12);
+        List<Profile> list = Arrays.asList(new Profile(address1), new Profile(address2), new Profile(address3));
+        Profiles profiles = new Profiles();
+        Assert.assertThat(profiles.sortAddress(list).size(), is(2));
+    }
+    @Test
+    public void checkSortProfiles() {
+        Address address1 = new Address("Moscow", "Third builders st.", 25, 12);
+        Address address2 = new Address("Leningrad", "Third builders st.", 25, 12);
+        List<Profile> list = Arrays.asList(new Profile(address1), new Profile(address2));
+        Profiles profiles = new Profiles();
+        Assert.assertThat(profiles.sortAddress(list).get(0), is(address2));
+    }
 }
