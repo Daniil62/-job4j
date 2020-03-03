@@ -1,9 +1,10 @@
-package ru.job4j.streamAPI;
+package ru.job4j.streamapi;
 
 import java.util.Objects;
 
 public class Student {
     private  int score;
+    private String surname;
 
     @Override
     public boolean equals(Object o) {
@@ -26,10 +27,14 @@ public class Student {
     public String toString() {
         return "Student{" + "score=" + score + '}';
     }
-    public Student(int score) {
+    public Student(int score, String surname) {
         this.score = score;
+        this.surname = surname;
     }
     public int getScore() {
-        return  score;
+        return this.score;
+    }
+    public String getSurname() {
+        return this.surname;
     }
 }
