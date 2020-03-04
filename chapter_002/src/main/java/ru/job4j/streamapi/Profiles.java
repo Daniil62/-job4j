@@ -10,7 +10,6 @@ public class Profiles {
     }
     public List<Address> sortAddress(List<Profile> profiles) {
         List<Address> addresses = collect(profiles);
-        addresses.sort(new AddressSortByCity());
-        return addresses.stream().distinct().collect(Collectors.toList());
+        return addresses.stream().sorted(new AddressSortByCity()).distinct().collect(Collectors.toList());
     }
 }
