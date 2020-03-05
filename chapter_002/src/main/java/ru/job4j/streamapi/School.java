@@ -12,7 +12,7 @@ public class School {
         group.forEach(System.out::println);
         return group;
     }
-    public Map<String,Student> collectToMap(List<Student> students) {
-        return students.stream().collect(Collectors.toMap(Student::getSurname, s -> s));
+    public Map<String, Student> collectToMap(List<Student> students) {
+        return students.stream().distinct().collect(Collectors.toMap(Student::getSurname, s -> s));
     }
 }
