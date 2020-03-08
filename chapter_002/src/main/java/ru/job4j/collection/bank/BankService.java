@@ -8,13 +8,16 @@ import java.util.stream.Collectors;
 
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
+    private Map<User, List<Account>> secondary(String passport) {
+        return users.entrySet().stream().filter(a -> a.getKey().getPassport().equals(passport))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
     public void addUser(User user) {
             users.putIfAbsent(user, new ArrayList<Account>());
     }
     public void addAccount(String passport, Account account) {
         if (account != null) {
-            users.entrySet().stream().filter(a -> a.getKey().getPassport().equals(passport))
-                    .forEach(u -> u.getValue().add(account));
+            secondary(passport).forEach((key, value) -> value.add(account));
         }
     }
     public User findByPassport(String passport) {
@@ -22,8 +25,8 @@ public class BankService {
                 .findAny().orElse(null);
     }
     public Account findByRequisite(String passport, String requisite) {
-        return users.entrySet().stream().filter(u -> u.getKey().getPassport().equals(passport))
-                .map(u -> u.getValue().stream().filter(a -> a.getRequisite().equals(requisite))
+        return secondary(passport).values().stream()
+                .map(accounts -> accounts.stream().filter(a -> a.getRequisite().equals(requisite))
                         .findAny().orElse(null)).findAny().orElse(null);
     }
     public boolean transferMoney(String srcPassport, String srcRequisite,
