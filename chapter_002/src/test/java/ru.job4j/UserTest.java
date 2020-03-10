@@ -14,12 +14,13 @@ import static org.hamcrest.core.Is.is;
 public class UserTest {
     @Test
     public void whenAsc() {
-        Set<User> users = new TreeSet<>();
-        users.add(new User("Petr", "Petrov", 33));
-        users.add(new User("Ivan", "Ivanov", 32));
+        Set<User> users = new TreeSet<>(Set.of(new User("Petr", "Petrov", 33),
+                new User("Ivan", "Ivanov", 32),
+                new User("Sidor", "Sidorov", 30)));
         Iterator<User> it = users.iterator();
         Assert.assertThat(it.next(), is(new User("Ivan", "Ivanov", 32)));
         Assert.assertThat(it.next(), is(new User("Petr", "Petrov", 33)));
+        Assert.assertThat(it.next(), is(new User("Sidor", "Sidorov", 30)));
     }
 
     @Test
