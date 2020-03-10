@@ -10,7 +10,7 @@ public class PhoneDictionary {
     }
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
-        for (int i = 0; i < persons.size(); ++i) {
+        for (var i = 0; i < persons.size(); ++i) {
             if (persons.get(i).getName().contains(key) || persons.get(i).getSurname().contains(key)
                     || persons.get(i).getPhone().contains(key)
                     || persons.get(i).getAddress().contains(key)) {
@@ -26,11 +26,11 @@ public class PhoneDictionary {
     }
 
     public static void main(String[] args) {
-        PhoneDictionary pd = new PhoneDictionary();
-        Person person1 = new Person
-                ("Evgeny", "Lukashin", "454-60-21", "Moscow, Third builders st., 25, 12");
-        Person person2 = new Person
-                ("Nadezhda", "Sheveleva", "14-50-30", "Leningrad, Third builders st., 25, 12");
+        var pd = new PhoneDictionary();
+        var person1 = new Person(
+                "Evgeny", "Lukashin", "454-60-21", "Moscow, Third builders st., 25, 12");
+        var person2 = new Person(
+                "Nadezhda", "Sheveleva", "14-50-30", "Leningrad, Third builders st., 25, 12");
         pd.add(person1);
         pd.add(person2);
         pd.find("Third");

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class PriorityQueue {
     private LinkedList<Task> tasks = new LinkedList<>();
     public void put(Task task) {
-        int index = 0;
+        var index = 0;
         for (Task element : tasks) {
             if (task.getPriority() < element.getPriority()) {
                 tasks.add(index, task);
@@ -28,14 +28,14 @@ public class PriorityQueue {
 
     public static void main(String[] args) {
         PriorityQueue pq = new PriorityQueue();
-        Task task1 = new Task("task1", 4);
-        Task task2 = new Task("task2", 7);
-        Task task3 = new Task("task3", 8);
-        Task task4 = new Task("task4", 3);
-        Task task5 = new Task("task5", 6);
-        Task task6 = new Task("task6", 2);
-        Task task7 = new Task("task7", 1);
-        Task task8 = new Task("task8", 5);
+        var task1 = new Task("task1", 4);
+        var task2 = new Task("task2", 7);
+        var task3 = new Task("task3", 8);
+        var task4 = new Task("task4", 3);
+        var task5 = new Task("task5", 6);
+        var task6 = new Task("task6", 2);
+        var task7 = new Task("task7", 1);
+        var task8 = new Task("task8", 5);
         pq.put(task1);
         pq.put(task2);
         pq.put(task3);
