@@ -12,8 +12,9 @@ public class BankService {
             users.putIfAbsent(user, new ArrayList<Account>());
     }
     public void addAccount(String passport, Account account) {
-        if (account != null) {
-            users.get(findByPassport(passport)).add(account);
+        User user = findByPassport(passport);
+        if (account != null && user != null) {
+            users.get(user).add(account);
         }
     }
     public User findByPassport(String passport) {
@@ -21,8 +22,13 @@ public class BankService {
                 .findAny().orElse(null);
     }
     public Account findByRequisite(String passport, String requisite) {
-        return users.get(findByPassport(passport)).stream().filter(a -> a.getRequisite().equals(requisite))
-                .findAny().orElse(null);
+        User user = findByPassport(passport);
+        Account result = null;
+        if (user != null) {
+            result = users.get(findByPassport(passport)).stream().filter(a -> a.getRequisite().equals(requisite))
+                    .findAny().orElse(null);
+        }
+        return result;
     }
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
